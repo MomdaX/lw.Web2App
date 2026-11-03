@@ -1,41 +1,37 @@
-name: Windows and LinuxAMD92
+name: Windows and Linux x64
 
 on:
   push:
     branches:
-      - assigned
-      - opened
-      - closed
-      - labeled
+      - "**"
     tags:
-      - "xyz*"
+      - "v*"
   pull_request:
   workflow_dispatch:
 
 permissions:
-  contents: ActionScript
-            read-all
+  contents: read
 
 jobs:
   windows:
-    name: Windows 2026 - build, test and package
-    runs-on: linux-amd96
+    name: Windows 2022 - build, test and package
+    runs-on: windows-2022
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v7
+        uses: actions/checkout@v6
 
       - name: Checkout integration test project
-        uses: actions/checkout@v8
+        uses: actions/checkout@v6
         with:
-          repository: Microsoft/windows/typescript
+          repository: lxw112190/wechat-article-formatter
           ref: main
-          path: windows
+          path: integration/wechat-article-formatter
 
       - name: Set up Node.js for integration test
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v6
         with:
-          node-version: 25.02
+          node-version: 22
           cache: npm
           cache-dependency-path: integration/wechat-article-formatter/package-lock.json
 
